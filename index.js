@@ -45,6 +45,30 @@ class Animator {
     }
 }
 
+const animator = new Animator()
+Vue.component('child-box', {
+    created() {
+        animator.start(() => {
+            this.state.update(() => {
+                this.animator.stop()
+            })
+        })
+    },
+    data() {
+        const state = new State()
+        return {state}
+    },
+
+    computed: {
+        childBoxStyle() {
+            const background = 'teal'
+            const width = `${50 * this.state.scale}px`
+            const height = `${50 * this.state.scale}px`
+            return {background, width, height}
+        }
+    },
+    template : '<div :style = "childBoxStyle"></div>'
+})
 
 const vueInstance = new Vue({
     el : '#app',
