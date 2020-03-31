@@ -1,6 +1,7 @@
 const vueInstance = new Vue({
+    el : '#app',
     data: {
-        return {children : 0}
+      children : 0
     },
 
     methods: {
