@@ -24,6 +24,27 @@ class State {
     }
 }
 
+class Animator {
+
+    animated = false
+
+    start(cb) {
+        if (!this.animated) {
+            this.animated = true
+            this.interval = setInterval(cb, {
+                cb()
+            })
+        }
+    }
+
+    stop() {
+        if (this.animated) {
+            this.animated = false
+            clearInterva
+        }
+    }
+}
+
 
 const vueInstance = new Vue({
     el : '#app',
