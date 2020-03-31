@@ -31,16 +31,16 @@ class Animator {
     start(cb) {
         if (!this.animated) {
             this.animated = true
-            this.interval = setInterval(cb, {
+            this.interval = setInterval(() => {
                 cb()
-            })
+            }, delay)
         }
     }
 
     stop() {
         if (this.animated) {
             this.animated = false
-            clearInterva
+            clearInterval(this.interval)
         }
     }
 }
@@ -48,11 +48,14 @@ class Animator {
 const animator = new Animator()
 Vue.component('child-box', {
     created() {
-        animator.start(() => {
-            this.state.update(() => {
-                this.animator.stop()
+        this.state.startUpdating(() => {
+            animator.start(() => {
+                this.state.update(() => {
+                    animator.stop()
+                })
             })
         })
+
     },
     data() {
         const state = new State()
@@ -64,10 +67,13 @@ Vue.component('child-box', {
             const background = 'teal'
             const width = `${50 * this.state.scale}px`
             const height = `${50 * this.state.scale}px`
-            return {background, width, height}
+            const textAlign = 'center'
+            const fontSize = '20px'
+            const color = 'white'
+            return {background, width, height, textAlign, fontSize, color}
         }
     },
-    template : '<div :style = "childBoxStyle"></div>'
+    template : '<div :style = "childBoxStyle"><slot></slot></div>'
 })
 
 const vueInstance = new Vue({

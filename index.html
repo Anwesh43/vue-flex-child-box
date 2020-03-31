@@ -1,18 +1,32 @@
-<body>
+<html>
+  <head>
+      <style>
+          .container {
+              display :flex;
+              flex-direction: row;
+          }
+      </style>
+  </head>
+  <body>
     <div id = "app">
-
         <p>
             {{children}}
         </p>
-        <button @click "add">
+        <button @click = "add">
             Add
         </button>
         <button @click = "sub">
             Sub
         </button>
+        <div class = "container">
+            <child-box v-for = "i in children">
+               {{i}}
+            </child-box>
+        </div>
     </div>
     <script src = "vue.js">
     </script>
     <script src = "index.js">
     </script>
-</body>
+  </body>
+</html>
